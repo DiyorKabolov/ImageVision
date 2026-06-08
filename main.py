@@ -39,6 +39,17 @@ def main():
 
     root = tk.Tk()
 
+    # Устанавливаем иконку окна
+    try:
+        import os, sys
+        # Поддержка PyInstaller (frozen) и обычного запуска
+        base = getattr(sys, '_MEIPASS', os.path.dirname(os.path.abspath(__file__)))
+        icon_path = os.path.join(base, 'icon.ico')
+        if os.path.exists(icon_path):
+            root.iconbitmap(icon_path)
+    except Exception:
+        pass
+
     # Импортируем GUI после настройки логирования
     from gui import ImageVisionApp  # noqa: E402
     app = ImageVisionApp(root)  # noqa: F841
