@@ -1,0 +1,16 @@
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.log
+.vscode/
+.idea/
+*.png
+*.jpg
+*.jpeg
+!examples/*.png
+!examples/*.jpg
+!examples/*.jpeg
