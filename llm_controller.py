@@ -89,11 +89,11 @@ class LLMController:
         except json.JSONDecodeError:
             pass
 
-        # Ищем первый JSON-объект в тексте
-        match = re.search(r'\{[^{}]*\}', text, re.DOTALL)
+        # Ищем JSON-объект от первой фигурной скобки до последней
+        match = re.search(r'(\{.*\})', text, re.DOTALL)
         if match:
             try:
-                return json.loads(match.group())
+                return json.loads(match.group(1))
             except json.JSONDecodeError:
                 pass
 

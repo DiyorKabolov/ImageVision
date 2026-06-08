@@ -45,6 +45,7 @@ class ImageVisionApp:
 
         self._configure_root()
         self._build_ui()
+        self._setup_bindings()
         self._log("🚀 Приложение запущено. Загрузите изображение.")
         self._log("🤖 LLM: Qwen через LM Studio (localhost:1234)")
 
@@ -58,6 +59,14 @@ class ImageVisionApp:
         self.root.minsize(1100, 700)
         self.root.configure(bg=BG_DARK)
         self.root.option_add("*Font", FONT_BODY)
+
+    def _setup_bindings(self):
+        self.root.bind("<Control-o>", lambda e: self._load_image())
+        self.root.bind("<Control-O>", lambda e: self._load_image())
+        self.root.bind("<Control-s>", lambda e: self._save_image())
+        self.root.bind("<Control-S>", lambda e: self._save_image())
+        self.root.bind("<Control-r>", lambda e: self._reset_image())
+        self.root.bind("<Control-R>", lambda e: self._reset_image())
 
     # ──────────────────────────────────────────────
     # Построение интерфейса
@@ -112,7 +121,7 @@ class ImageVisionApp:
         self._section_label(parent, "УПРАВЛЕНИЕ")
 
         # Кнопка загрузки
-        self._btn(parent, "📂  Загрузить изображение", self._load_image, color=ACCENT)
+        self._btn(parent, "📂  Загрузить изображение  [Ctrl+O]", self._load_image, color=ACCENT)
 
         tk.Frame(parent, bg=BORDER, height=1).pack(fill=tk.X, padx=14, pady=12)
         self._section_label(parent, "КОМАНДА (на русском)")
@@ -155,8 +164,8 @@ class ImageVisionApp:
         tk.Frame(parent, bg=BORDER, height=1).pack(fill=tk.X, padx=14, pady=12)
         self._section_label(parent, "ДЕЙСТВИЯ")
 
-        self._btn(parent, "↺  Сбросить к оригиналу", self._reset_image, color=WARNING)
-        self._btn(parent, "💾  Сохранить результат", self._save_image, color=TEXT_SECONDARY)
+        self._btn(parent, "↺  Сбросить к оригиналу  [Ctrl+R]", self._reset_image, color=WARNING)
+        self._btn(parent, "💾  Сохранить результат  [Ctrl+S]", self._save_image, color=TEXT_SECONDARY)
 
         # JSON-блок
         tk.Frame(parent, bg=BORDER, height=1).pack(fill=tk.X, padx=14, pady=12)

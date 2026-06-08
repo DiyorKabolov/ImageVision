@@ -252,9 +252,13 @@ class ImageProcessor:
         if method is None:
             return self.current, f"⚠️ Метод '{method_name}' не найден."
 
-        if action == "save":
-            path = method()
-            return self.current, f"✅ Сохранено: {path}"
-        else:
-            result = method()
-            return result, f"✅ Выполнено: {action}"
+        try:
+            if action == "save":
+                path = method()
+                return self.current, f"✅ Сохранено: {path}"
+            else:
+                result = method()
+                return result, f"✅ Выполнено: {action}"
+        except Exception as e:
+            logger.error(f"Ошибка при выполнении '{action}': {e}")
+            return self.current, f"❌ Ошибка операции '{action}': {e}"
